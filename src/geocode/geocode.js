@@ -1,39 +1,28 @@
-const request = require('request');
+const axios = require('axios');
 
 const apiResponseStatuses = {
     ok: 'OK',
     no_results: 'ZERO_RESULTS'
 };
 
-var geocodeAddress = (address, callback) => {
+var geocodeAddress = (address) => {
     var encodedAddressInput = encodeURIComponent(address),
-        result = {
-            address: undefined,
-            message: undefined,
-            success: false
-        };
+        geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddressInput}`;
 
-    request({
-        url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddressInput}`,
-        json: true
-    }, (error, response, body) => {
-        if (error) {
-            result.message = `Unable to performe a request: ${error}`;
-        } else if (body.status === apiResponseStatuses.no_results) {
-            result.message = `Unable to find address: ${address}.`;
-        } else if (body.status === apiResponseStatuses.ok) {
-            result.message = 'Address geocode found.';
-            result.address = {
-                address: body.results[0].formatted_address,
-                lattitude: body.results[0].geometry.location.lat,
-                longitude: body.results[0].geometry.location.lng,
-            };
-            result.success = true;
-        } else {
-            result.message = 'Weird stuff is happening here...';
-        }
+    return new Promise((resolve, reject) => {
+        axios.get(geocodeUrl).then((response) => {
+            if (response.data.status === apiResponseStatuses.no_results) {
+                throw new Error(`Unable to find that address.`);
+            }
 
-        callback(result);
+            resolve({
+                    address: response.data.results[0].formatted_address,
+                    lattitude: response.data.results[0].geometry.location.lat,
+                    longitude: response.data.results[0].geometry.location.lng,
+                });
+        }).catch((e) => {
+            reject(e.message);
+        });
     });
 };
 

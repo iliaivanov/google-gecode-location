@@ -14,10 +14,8 @@ const argv = yargs
     .alias('help', 'h')
     .argv;
 
-geocode.geocodeAddress(argv.a, (results) => {
-    if (results.success) {
-        console.log(JSON.stringify(results.address, undefined, 2));
-    } else {
-        console.log(results.message);
-    }
+geocode.geocodeAddress(argv.a).then((results) => {
+    console.log(JSON.stringify(results, undefined, 2));
+}, (errorMessage) => {
+    console.log(errorMessage);
 });
