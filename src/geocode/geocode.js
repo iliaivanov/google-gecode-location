@@ -16,10 +16,10 @@ var geocodeAddress = (address) => {
             }
 
             resolve({
-                    address: response.data.results[0].formatted_address,
-                    lattitude: response.data.results[0].geometry.location.lat,
-                    longitude: response.data.results[0].geometry.location.lng,
-                });
+                address: response.data.results[0].formatted_address,
+                lattitude: response.data.results[0].geometry.location.lat,
+                longitude: response.data.results[0].geometry.location.lng,
+            });
         }).catch((e) => {
             reject(e.message);
         });
