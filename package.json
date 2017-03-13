@@ -1,15 +1,24 @@
 {
-  "name": "weather-app",
+  "name": "google-gecode-location",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple lib to fetch google geodata.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "axios": "^0.15.3",
-    "yargs": "^4.8.1"
-  }
+    "axios": "^0.15.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/iliaivanov/google-gecode-location.git"
+  },
+  "keywords": [
+    "google",
+    "geocode"
+  ],
+  "author": "Ilia I",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iliaivanov/google-gecode-location/issues"
+  },
+  "homepage": "https://github.com/iliaivanov/google-gecode-location#readme"
 }
